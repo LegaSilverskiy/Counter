@@ -7,14 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+ class ViewController: UIViewController {
     
-    @IBOutlet var backViewColor: UIView! // Добавил и переименовал стандартный View для изменения фонового цвета, но по итогу передумал. Оставил для возможности все таки менять цвет
-    @IBOutlet weak var countLabel: UILabel! // лейбл для счетчика
-    @IBOutlet weak var plusButton: UIButton! // кнопка +1
-    @IBOutlet weak var minusButton: UIButton! // кнопка -1
-    @IBOutlet weak var resetButton: UIButton! // кнопка сброса
-    @IBOutlet weak var actionHistory: UITextView! // UITextView для логов
+    @IBOutlet private var backViewColor: UIView! // Добавил и переименовал стандартный View для изменения фонового цвета, но по итогу передумал. Оставил для возможности все таки менять цвет
+    @IBOutlet weak private var countLabel: UILabel! // лейбл для счетчика
+    @IBOutlet weak private var plusButton: UIButton! // кнопка +1
+    @IBOutlet weak private var minusButton: UIButton! // кнопка -1
+    @IBOutlet weak private var resetButton: UIButton! // кнопка сброса
+    @IBOutlet weak private var actionHistory: UITextView! // UITextView для логов
     private var countNumber: Int = 0 // переменная для записи значений счетчика
     private func currentDate () -> String { // функция для определения и форматирования даты
         let dateFormatter = DateFormatter()
@@ -38,17 +38,16 @@ class ViewController: UIViewController {
         actionHistory.textColor = .white // покрасил текст в UItextView в белый
         actionHistory.text = "История изменений: \n" // указал заголовок в UItextView
         actionHistory.isEditable = false // запредил редактирование для пользователя в UItextView
-        // Do any additional setup after loading the view.
     }
     
-    @IBAction func increaseButton(_ sender: Any) { // +1 к счетчику и запись логов с датой
+    @IBAction private func increaseButton(_ sender: Any) { // +1 к счетчику и запись логов с датой
         countNumber += 1
         countLabel.text = "Значение счётчика: \(countNumber)"
         
         actionHistory.insertText("\(currentDate()) значение изменено на +1 \n")
         
     }
-    @IBAction func decreaseButton(_ sender: Any) { // -1 к счетчику и запись логов с датой
+    @IBAction private func decreaseButton(_ sender: Any) { // -1 к счетчику и запись логов с датой
         if countNumber > 0 {
             countNumber -= 1
             actionHistory.insertText("\(currentDate()) значение изменено на -1 \n")
@@ -58,7 +57,7 @@ class ViewController: UIViewController {
         }
         countLabel.text = "Значение счётчика: \(countNumber)"
     }
-    @IBAction func resetButton(_ sender: Any) { // сброс счетчика до 0 и запись логов с датой
+    @IBAction private func resetButton(_ sender: Any) { // сброс счетчика до 0 и запись логов с датой
         countNumber = 0
         countLabel.text = "Значение счётчика: \(countNumber)"
         actionHistory.insertText("\(currentDate()) значение сброшено \n")
